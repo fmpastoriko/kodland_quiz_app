@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table.rowFooter {
+            width: 100%;
+            border-spacing: 5px;
+            border-collapse: inherit;
+            margin-top: auto;
+        }
+
+        td.footerBackground {
+            padding-right: 15px;
+            background-color: #336B87;
+            text-align: right;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        p.current-date {
+            color: #FFFFFF;
+            font-size: 12pt;
+            font-family: "Courier", serif;
+            margin: 5px;
+        }
+
+        p.name {
+            color: #FFFFFF;
+            font-size: 12pt;
+            font-family: "Courier", serif;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <table class="rowFooter">
+        <tr>
+            <td class="footerBackground">
+                <p class="name">Created by <a href="https://id.linkedin.com/in/fransiskus-pastoriko-617b10164" style="color: yellow;">F.M.Pastoriko</a> | <a style="color: yellow;" href="https://www.freepik.com/free-vector/autumn-landscape-with-bare-trees-firs-different-time-day-vector-cartoon-illustration-fall-nature-scene-with-coniferous-trees-field-early-morning-night-sunset-noon_25917767.htm#query=morning%20afternoon%20evening&position=12&from_view=keyword&track=ais&uuid=348e670a-9a68-4813-8440-8dd63ce5c308">Weather img by upklyak</a> on Freepik</p>
+                <p class="current-date">Day, Month Date Year, HH:MM</p>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        function updateCurrentDate() {
+            var currentDateElement = document.querySelector(".current-date");
+            var currentDate = new Date();
+
+            var options = {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+            };
+
+            var formattedDate = currentDate.toLocaleDateString('en-US', options);
+            currentDateElement.textContent = formattedDate;
+        }
+
+        updateCurrentDate();
+        setInterval(updateCurrentDate, 60000);
+    </script>
+</body>
+</html>

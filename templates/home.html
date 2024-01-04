@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.content {
+				display: flex;
+				width: 90%;
+			}
+
+			.left-column,
+			.right-column {
+				width: 50%;
+			}
+
+			.left-column {
+				margin-right: 10px;
+			}
+
+			.left-column {
+				margin-left: 10px;
+			}
+		</style> {% include 'header_logged_in.html' %}
+	</head>
+	<body>
+		<div class="content">
+			<div class="left-column">
+				<input class="searchBox" type="text" id="searchName" onkeyup="searchName()" placeholder="Search by name">
+				<div class="carousel slide" data-ride="carousel">
+					<div class="leaderboardCard">
+						<table id="leaderboardTable">
+							<thead>
+								<tr>
+									<th>RANK</th>
+									<th>USERNAME</th>
+									<th>SCORE</th>
+									<th>DATE</th>
+								</tr>
+							</thead>
+							<tbody> {% for result in leaderboard_data %} <tr>
+									<td>{{ loop.index }}</td>
+									<td>{{ result['username'] }}</td>
+									<td>{{ result['final_score'] }}</td>
+									<td>{{ result['date'] }}</td>
+								</tr> {% endfor %} </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="right-column">
+				<form method="post">
+					<input class="searchBox" type="text" id="city" name="city" placeholder="Change city here" required>
+				</form>
+				<div id="weatherCarousel" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner"> {% if weather_data %} {% for forecast in weather_data['forecasts'] %} <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
+							<div class="weatherCard {{ forecast['time_of_day'] }}">
+								<div class="datetime">{{ forecast['date_time'] }}</div>
+								<div class="temp">
+									<span>{{ forecast['temp'] }}°C</span>
+								</div>
+								<div class="state">{{ forecast['state'] }}</div>
+								<img src="{{ forecast['icon_url'] }}" alt="Weather Icon" style="width: 200px; height: 200px;">
+								<div class="city">{{ weather_data['city'] }}</div>
+							</div>
+						</div> {% endfor %} {% endif %} </div>
+					<a class="carousel-control-prev" href="#weatherCarousel" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#weatherCarousel" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+            {% include 'footer.html' %}
+        </div>
+	</body>
+	<script>
+        function searchName() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchName");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("leaderboardTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Assuming the username is in the second column
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</html>

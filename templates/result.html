@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"> {% include 'header_logged_in.html' %} <body>
+		<div class="wrapper">
+			<br>
+			<br>
+			<br> {% if final_score is defined %} <h4 style="font-family: Courier, serif;">
+				<b>Your final score is ... </b>
+			</h4>
+			<br>
+			<br>
+			<br>
+			<h1 style="font-family: Courier, serif; font-size: 100pt;">
+				<b>{{ final_score }}</b>
+				<br>
+			</h1>
+			<br>
+			<br>
+			<br>
+			<h4 style="font-family: Courier, serif;">
+				<b>Thank you for taking the quiz!</b>
+			</h4> {% else %} <h4 style="font-family: Courier, serif;">
+				<b>{{ message }}</b>
+			</h4> {% endif %}
+		</div>
+		<div class="footer">
+            {% include 'footer.html' %}
+        </div>
+	</body>
+</html>

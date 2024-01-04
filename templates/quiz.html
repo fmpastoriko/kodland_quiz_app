@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.content {
+				display: flex;
+				width: 80%;
+				flex-direction: column;
+			}
+
+			th,
+			td {
+				text-align: left;
+			}
+		</style> {% include 'header_logged_in.html' %}
+	</head>
+	<body>
+		<table cellpadding="30" width="80%" style="margin-top: 1%;">
+			<tr width="80%">
+				<td class="question" style="padding-bottom: 0px; padding-top: 15px;">
+					<h5 style="font-family: Courier, serif;">
+						<b>Question {{ question_index }} (from {{ total_questions }})</b>
+						<br>
+						<hr>
+					</h5>
+					<h3 style="font-family: Courier, serif;">
+						<p align=justify style="margin-bottom:0px;">{{ question['question'] }}</p>
+					</h3>
+				</td>
+			</tr>
+		</table>
+		<div class="content">
+			<form method="POST" action="/quiz">
+				<table class="rowJawaban" style="border-collapse: inherit;">
+					<tr>
+						<td class="frameOption">
+							<button type="button" class="clear" onclick="submitForm('{{ options[0] }}')">
+								<div style="width: 100%">
+									<table class="skinOption">
+										<tr>
+											<td class="separator"></td>
+											<td class="option"> A </td>
+											<td class="separator"></td>
+											<td class="isiOption">
+												{{ options[0] }}
+											</td>
+										</tr>
+									</table>
+								</div>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="frameOption">
+							<button type="button" class="clear" onclick="submitForm('{{ options[1] }}')">
+								<div style="width: 100%">
+									<table class="skinOption">
+										<tr>
+											<td class="separator"></td>
+											<td class="option"> B </td>
+											<td class="separator"></td>
+											<td class="isiOption">
+												{{ options[1] }}
+											</td>
+										</tr>
+									</table>
+								</div>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="frameOption">
+							<button type="button" class="clear" onclick="submitForm('{{ options[2] }}')">
+								<div style="width: 100%">
+									<table class="skinOption">
+										<tr>
+											<td class="separator"></td>
+											<td class="option"> C </td>
+											<td class="separator"></td>
+											<td class="isiOption">
+												{{ options[2] }}
+											</td>
+										</tr>
+									</table>
+								</div>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="frameOption">
+							<button type="button" class="clear" onclick="submitForm('{{ options[3] }}')">
+								<div style="width: 100%">
+									<table class="skinOption">
+										<tr>
+											<td class="separator"></td>
+											<td class="option"> D </td>
+											<td class="separator"></td>
+											<td class="isiOption">
+												{{ options[3] }}
+											</td>
+										</tr>
+									</table>
+								</div>
+							</button>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="selected_answer" id="selected_answer" value="">
+				<input type="hidden" name="question_index" value="{{ question_index }}">
+				<input type="hidden" name="correct_answer" value="{{ correct_answer }}">
+			</form>
+			<div style="align-items: center;">
+			    <button class="btnLandingPageSmall" onclick="endNow()">End Now</button>
+			</div>
+			<script>
+				function submitForm(answer) {
+					document.getElementById('selected_answer').value = answer;
+					document.forms[0].submit();
+				}
+
+				function endNow() {
+					window.location.href = "/result";
+				}
+			</script>
+		</div>
+		<div class="footer">
+            {% include 'footer.html' %}
+        </div>
+	</body>
+</html>

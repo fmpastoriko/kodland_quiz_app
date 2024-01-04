@@ -1,0 +1,310 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<meta charset="UTF-8">
+		<title>Kodland Quiz App</title>
+		<style>
+			body {
+				background-color: #90AFC5;
+				text-align: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			table.rowHeader {
+				width: 100%;
+				border-spacing: 5px;
+				border-collapse: inherit;
+			}
+
+			td.headerBackground {
+				padding-left: 30px;
+				background-color: #336B87;
+				text-align: left;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			a.clear {
+				text-decoration: none;
+			}
+
+			button.btnLandingPage {
+				width: 350px;
+				margin: 20px;
+				padding: 10px;
+				border: 5px solid #2A3132;
+				border-radius: 10px;
+				font-size: 17pt;
+				font-family: "Courier", serif;
+				color: #FFFFFF;
+				background-color: #2A3132;
+				letter-spacing: 2px;
+				transition: all 0.7s;
+			}
+
+			button.btnLandingPage:hover {
+				border: 5px solid #504A4B;
+				color: #FFFFFF;
+				background-color: #504A4B;
+				transition: all 0.7s;
+			}
+
+			button.btnLandingPageSmall {
+				width: 150px;
+				margin: 20px;
+				padding: 0.5px;
+				border: 5px solid #2A3132;
+				border-radius: 10px;
+				font-size: 14pt;
+				font-family: "Courier", serif;
+				color: #FFFFFF;
+				background-color: #2A3132;
+				letter-spacing: 2px;
+				transition: all 0.7s;
+			}
+
+			button.btnLandingPageSmall:hover {
+				border: 5px solid #504A4B;
+				color: #FFFFFF;
+				background-color: #504A4B;
+				transition: all 0.7s;
+			}
+
+			input.searchBox {
+				width: 350px;
+				margin: 10px;
+				padding: 10px;
+				border: 5px solid #2A3132;
+				border-radius: 10px;
+				font-size: 10pt;
+				font-family: "Courier", serif;
+				color: #FFFFFF;
+				background-color: #2A3132;
+				letter-spacing: 2px;
+				transition: all 0.7s;
+				height: 10px;
+			}
+
+			.weatherCard {
+				padding: 0;
+				border: none;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+				background-size: cover;
+				border-radius: 5px !important;
+				color: white;
+				font-weight: 600;
+				text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+				height: 455px;
+			}
+
+			.leaderboardCard {
+				padding: 0;
+				border: none;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+				background-size: cover;
+				border-radius: 5px !important;
+				color: black;
+				font-weight: 600;
+				text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+				height: 455px;
+				background-color: #FFFFFF;
+                overflow-y: auto;
+			}
+
+			.night {
+				background-image: url("/static/img/night.jpg");
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			.day {
+				background-image: url("/static/img/day.jpg");
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			.afternoon {
+				background-image: url("/static/img/afternoon.jpg");
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			.morning {
+				background-image: url("/static/img/morning.jpg");
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			.datetime {
+				text-align: center;
+				font-size: 15px;
+				height: 20%;
+				padding-top: 5%;
+			}
+
+			.temp {
+				text-align: center;
+				font-size: 50px;
+				height: 20%;
+			}
+
+			.state {
+				text-align: center;
+				font-size: 30px;
+			}
+
+			.city {
+				text-align: center;
+				height: 10%;
+				font-size: 40px;
+				display: flex;
+				justify-content: center;
+				align-items: flex-end;
+				padding-bottom: 6%;
+			}
+
+			td.question {
+				font-size: 17pt;
+				background-color: #FFFFFF;
+				border-radius: 20px;
+				padding-left: 50px;
+				padding-right: 50px;
+				transition: all 1.5s;
+			}
+
+			td.question:hover {
+				background-color: #E5E4E2;
+				transition: all 1.5s;
+			}
+
+			table.rowJawaban {
+				border-spacing: 15px;
+				width: 80%;
+				height: 30%;
+				display: inline-table;
+			}
+
+			td.frameOption {
+				text-align: center;
+				background-color: #FFFFFF;
+				border-radius: 20px;
+			}
+
+			table.skinOption {
+				width: 100%;
+				opacity: 0.9;
+				transition: all 1s;
+			}
+
+			td.frameOption:hover {
+				background-color: #E5E4E2;
+				transition: all 1s;
+				opacity: 1;
+			}
+
+			td.option {
+				width: 8%;
+				text-align: center;
+				font-size: 15pt;
+				border-radius: 5px;
+				background-color: #2A3132;
+				color: #FFFFFF;
+			}
+
+			td.selector {
+				width: 88%;
+				font-size: 15pt;
+			}
+
+			td.separator {
+				width: 2%;
+			}
+
+			button.clear {
+				width: 100%;
+				border: none;
+				background: none;
+				padding: 0;
+				padding-top: 4px;
+				outline: 0;
+			}
+
+			button.icon {
+				width: 105px;
+				margin: 5px;
+				padding: 2px;
+				border: 5px solid #00008B;
+				border-radius: 10px;
+				font-size: 17pt;
+				font-family: "Courier", serif;
+				color: #FFFFFF;
+				background-color: #00008B;
+				letter-spacing: 2px;
+				transition: all 0.7s;
+			}
+
+			p.logged-out-message {
+				text-align: left;
+				margin: 10px;
+				font-size: 20pt;
+				color: #FFFFFF;
+				font-family: "Courier", serif;
+				font-weight: bold;
+			}
+
+			#leaderboardTable {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			#leaderboardTable th,
+			#leaderboardTable td {
+				padding: 8px;
+				text-align: center;
+			}
+
+			#leaderboardTable thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f2f2f2;
+            }
+
+			.footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            }
+		</style>
+	</head>
+	</style>
+	</head>
+	<body>
+		<table class="rowHeader">
+			<tr>
+				<td class="headerBackground">
+					<p class="logged-out-message">You're not logged in...</p>
+					<div>
+						<a href="/" class="clear">
+							<button class="icon">HOME</button>
+						</a>
+						<a href="/register" class="clear">
+							<button class="icon">SIGNUP</button>
+						</a>
+						<a href="/login" class="clear">
+							<button class="icon">LOGIN</button>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
