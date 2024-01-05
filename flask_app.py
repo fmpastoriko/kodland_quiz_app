@@ -241,15 +241,31 @@ def index():
     cursor = connection.cursor()
 
     select_leaderboard_query = (
-        "SELECT username, final_score, DATE(date) as date FROM result ORDER BY final_score DESC"
+    "SELECT username, final_score, DATE(date) as date FROM result ORDER BY final_score DESC"
     )
+    select_leaderboard_total_query = (
+        "SELECT username, SUM(final_score) as total_score FROM result GROUP BY username ORDER BY SUM(final_score) DESC"
+    )
+
     cursor.execute(select_leaderboard_query)
     leaderboard_data = [
         {"username": username, "final_score": final_score, "date": date}
         for username, final_score, date in cursor.fetchall()
     ]
+
+    cursor_total = connection.cursor()
+    cursor_total.execute(select_leaderboard_total_query)
+    total_leaderboard_data = [
+        {"username": username, "total_score": total_score}
+        for username, total_score in cursor_total.fetchall()
+    ]
+
+    cursor.close()
+    cursor_total.close()
+    connection.close()
+
     return render_template(
-        "index.html", weather_data=weather_data, leaderboard_data=leaderboard_data
+        "index.html", weather_data=weather_data, leaderboard_data=leaderboard_data,total_leaderboard_data=total_leaderboard_data
     )
 
 
@@ -279,17 +295,34 @@ def home():
     cursor = connection.cursor()
 
     select_leaderboard_query = (
-        "SELECT username, final_score, DATE(date) as date FROM result ORDER BY final_score DESC"
+    "SELECT username, final_score, DATE(date) as date FROM result ORDER BY final_score DESC"
     )
+    select_leaderboard_total_query = (
+        "SELECT username, SUM(final_score) as total_score FROM result GROUP BY username ORDER BY SUM(final_score) DESC"
+    )
+
     cursor.execute(select_leaderboard_query)
     leaderboard_data = [
         {"username": username, "final_score": final_score, "date": date}
         for username, final_score, date in cursor.fetchall()
     ]
+
+    cursor_total = connection.cursor()
+    cursor_total.execute(select_leaderboard_total_query)
+    total_leaderboard_data = [
+        {"username": username, "total_score": total_score}
+        for username, total_score in cursor_total.fetchall()
+    ]
+
+    cursor.close()
+    cursor_total.close()
+    connection.close()
+
     return render_template(
         "home.html",
         weather_data=weather_data,
         leaderboard_data=leaderboard_data,
+        total_leaderboard_data=total_leaderboard_data,
         username=session["username"],
     )
 
