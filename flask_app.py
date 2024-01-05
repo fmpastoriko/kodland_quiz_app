@@ -226,8 +226,8 @@ def index():
         public_ip = request.environ["REMOTE_ADDR"]
     else:
         public_ip = request.environ["HTTP_X_FORWARDED_FOR"]
-    #current_city = session.get('current_city') or get_city_from_ip(public_ip) or 'Jakarta'
-    current_city = session.get("current_city") or "Jakarta"
+    current_city = session.get('current_city') or get_city_from_ip(public_ip) or 'Jakarta'
+    #current_city = session.get("current_city") or "Jakarta"
 
     if request.method == "POST":
         city = request.form["city"]
@@ -264,8 +264,8 @@ def home():
         public_ip = request.environ["REMOTE_ADDR"]
     else:
         public_ip = request.environ["HTTP_X_FORWARDED_FOR"]
-    #current_city = session.get('current_city') or get_city_from_ip(public_ip) or 'Jakarta'
-    current_city = session.get("current_city") or "Jakarta"
+    current_city = session.get('current_city') or get_city_from_ip(public_ip) or 'Jakarta'
+    #current_city = session.get("current_city") or "Jakarta"
 
     if request.method == "POST":
         city = request.form["city"]
