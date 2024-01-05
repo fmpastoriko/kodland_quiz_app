@@ -25,25 +25,55 @@
 		<div class="content">
 			<div class="left-column">
 				<input class="searchBox" type="text" id="searchName" onkeyup="searchName()" placeholder="Search by name">
-				<div class="carousel slide" data-ride="carousel">
-					<div class="leaderboardCard">
-						<table id="leaderboardTable">
-							<thead>
-								<tr>
-									<th>RANK</th>
-									<th>USERNAME</th>
-									<th>SCORE</th>
-									<th>DATE</th>
-								</tr>
-							</thead>
-							<tbody> {% for result in leaderboard_data %} <tr>
-									<td>{{ loop.index }}</td>
-									<td>{{ result['username'] }}</td>
-									<td>{{ result['final_score'] }}</td>
-									<td>{{ result['date'] }}</td>
-								</tr> {% endfor %} </tbody>
-						</table>
+				<div id="leaderboardCarousel" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner">
+						<div class="carousel-item active ">
+							<div class="leaderboardCard">
+								<table id="leaderboardTable">
+									<thead>
+										<tr>
+											<th>RANK</th>
+											<th>USERNAME</th>
+											<th>TOTAL SCORE</th>
+										</tr>
+									</thead>
+									<tbody> {% for result in total_leaderboard_data %} <tr>
+											<td>{{ loop.index }}</td>
+											<td>{{ result['username'] }}</td>
+											<td>{{ result['total_score'] }}</td>
+										</tr> {% endfor %} </tbody>
+								</table>
+							</div>
+						</div>
+						<div class="carousel-item">
+							<div class="leaderboardCard">
+								<table id="leaderboardTable">
+									<thead>
+										<tr>
+											<th>RANK</th>
+											<th>USERNAME</th>
+											<th>SCORE</th>
+											<th>DATE</th>
+										</tr>
+									</thead>
+									<tbody> {% for result in leaderboard_data %} <tr>
+											<td>{{ loop.index }}</td>
+											<td>{{ result['username'] }}</td>
+											<td>{{ result['final_score'] }}</td>
+											<td>{{ result['date'] }}</td>
+										</tr> {% endfor %} </tbody>
+								</table>
+							</div>
+						</div>
 					</div>
+					<a class="carousel-control-prev" href="#leaderboardCarousel" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#leaderboardCarousel" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
 				</div>
 			</div>
 			<div class="right-column">
@@ -73,29 +103,26 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">
-            {% include 'footer.html' %}
-        </div>
+		<div class="footer"> {% include 'footer.html' %} </div>
 	</body>
 	<script>
-        function searchName() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchName");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("leaderboardTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1]; // Assuming the username is in the second column
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
+		function searchName() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("searchName");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("leaderboardTable");
+			tr = table.getElementsByTagName("tr");
+			for (i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[1]; // Assuming the username is in the second column
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+	</script>
 </html>
